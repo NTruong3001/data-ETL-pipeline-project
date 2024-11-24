@@ -1,0 +1,9 @@
+tạo key space 
+
+CREATE KEYSPACE my_keyspace WITH replication = { 'class': 'test', 'replication_factor': 1}
+
+
+insert dữ lieu vào bảng
+COPY myspace.mytable (create_time, bid, bn, campaign_id, cd, custom_track, de, dl, dt, ed, ev, group_id, id, job_id, md, publisher_id, rl, sr, ts, tz, ua, uid, utm_campaign, utm_content, utm_medium, utm_source, utm_term, v, vp)
+FROM '/home/data/tracking.csv'
+WITH HEADER = TRUE;

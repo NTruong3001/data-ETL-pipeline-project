@@ -1,0 +1,30 @@
+version: '3.9'
+services:
+  cassandra:
+    image: cassandra:latest
+    container_name: cassandra_1
+    ports:
+      - 9042:9042
+    volumes:
+      - /absolute/path/to/apps/cassandra:/var/lib/cassandra
+    environment:
+      CASSANDRA_CLUSTER_NAME: "MyCluster"
+      CASSANDRA_DC: "DC1"
+      CASSANDRA_RACK: "Rack1"
+      CASSANDRA_AUTHENTICATOR: PasswordAuthenticator
+      CASSANDRA_AUTHORIZER: CassandraAuthorizer
+      CASSANDRA_PASSWORD: "123"
+    networks:
+      - datamasterylab
+    healthcheck:
+      test: ["CMD", "cqlsh", "-e", "SELECT release_version FROM system.local"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 5s
+
+networks:
+  datamasterylab:
+
+volumes:
+  cassandra-data:
